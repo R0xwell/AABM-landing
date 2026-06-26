@@ -1,257 +1,566 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AABM | Agencia Aduanal Benito Martínez</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
-        @theme {
-            --color-brand: #031c45;
-            --color-brand-light: #0a2d6b;
-            --color-brand-accent: #2563eb;
+    <title>Agente Aduanal Benito Martínez, S.C.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Animaciones personalizadas */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Clases utilitarias personalizadas */
+        .nav-link {
+            animation: fadeIn 0.5s ease-out both;
+        }
+        
+        .nav-link:nth-child(1) { animation-delay: 0.05s; }
+        .nav-link:nth-child(2) { animation-delay: 0.10s; }
+        .nav-link:nth-child(3) { animation-delay: 0.15s; }
+        .nav-link:nth-child(4) { animation-delay: 0.20s; }
+        .nav-link:nth-child(5) { animation-delay: 0.25s; }
+        .nav-link:nth-child(6) { animation-delay: 0.30s; }
+        .nav-link:nth-child(7) { animation-delay: 0.35s; }
+        .nav-link:nth-child(8) { animation-delay: 0.40s; }
+        .nav-link:nth-child(9) { animation-delay: 0.45s; }
+        .nav-link:nth-child(10) { animation-delay: 0.50s; }
+        .nav-link:nth-child(11) { animation-delay: 0.55s; }
+        .nav-link:nth-child(12) { animation-delay: 0.60s; }
+        .nav-link:nth-child(13) { animation-delay: 0.65s; }
+        .nav-link:nth-child(14) { animation-delay: 0.70s; }
+        .nav-link:nth-child(15) { animation-delay: 0.75s; }
+        .nav-link:nth-child(16) { animation-delay: 0.80s; }
+
+        /* Fondo con curvas - simplificado */
+        .bg-curves {
+            background: linear-gradient(135deg, #d0d0d0 0%, #a8a8a8 50%, #c8c8c8 100%);
+        }
+        
+        .bg-curves::before,
+        .bg-curves::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(232,232,232,0.8) 0%, transparent 70%);
+        }
+        
+        .bg-curves::before {
+            top: -20%;
+            left: -10%;
+            width: 60%;
+            height: 80%;
+            transform: rotate(-15deg);
+        }
+        
+        .bg-curves::after {
+            bottom: -30%;
+            right: -10%;
+            width: 70%;
+            height: 90%;
+            background: radial-gradient(ellipse at center, rgba(184,184,184,0.6) 0%, transparent 70%);
+            transform: rotate(10deg);
+        }
+
+        /* Panel principal */
+        .main-panel {
+            background: linear-gradient(135deg, #0a1628 0%, #0d2137 30%, #0f2a4a 60%, #0a1e3d 100%);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .main-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(30,80,130,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(20,60,100,0.2) 0%, transparent 40%);
+        }
+
+        /* Logo BM */
+        .logo-shape {
+            background: linear-gradient(135deg, #a0a8b0 0%, #d0d4d8 50%, #a0a8b0 100%);
+            clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+        }
+
+        /* View Transitions — transiciones entre secciones */
+        @view-transition {
+            navigation: auto;
+        }
+
+        #main-content {
+            view-transition-name: main-content;
+        }
+
+        ::view-transition-old(main-content),
+        ::view-transition-new(main-content) {
+            animation-duration: 0.4s;
+            animation-timing-function: ease;
+        }
+
+        ::view-transition-old(main-content) {
+            animation-name: page-out;
+        }
+
+        ::view-transition-new(main-content) {
+            animation-name: page-in;
+        }
+
+        @keyframes page-out {
+            from { opacity: 1; transform: translateX(0); }
+            to   { opacity: 0; transform: translateX(-24px); }
+        }
+
+        @keyframes page-in {
+            from { opacity: 0; transform: translateX(24px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .page-view {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .page-view.active {
+            display: flex;
+        }
+
+        .page-view--home {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-view--scroll {
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            overflow-y: auto;
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .nav-link.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            translate: 4px 0;
+        }
+
+        .page-title {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .page-body {
+            color: #b8c8d8;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .page-body ul {
+            list-style: disc;
+            padding-left: 1.25rem;
+        }
+
+        .page-body li + li {
+            margin-top: 0.35rem;
+        }
+
+        .page-body a {
+            color: #7eb8e8;
+            text-decoration: underline;
+        }
+
+        .page-body a:hover {
+            color: #fff;
+        }
+
+        #pdf-container canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            background: #fff;
+        }
+
+        .pdf-page {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .pdf-loading {
+            color: #8899aa;
+            text-align: center;
+            padding: 2rem;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="min-h-screen overflow-x-hidden bg-[#c0c0c0] font-sans relative">
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
-        <div id="headercontainer" class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-            <div id="logocontainer" class="flex items-center gap-3">
-                <img src="public/img/BM.svg" alt="AABM logo" class="w-10 h-10">
-                <span class="hidden sm:block font-semibold text-brand text-sm leading-tight">
-                    Agencia Aduanal<br>Benito Martínez, S.C.
-                </span>
-            </div>
-            <div id="navcontainer">
-                <nav>
-                    <ul class="flex items-center gap-1 sm:gap-2 text-sm font-medium">
-                        <li><a href="#inicio" class="px-3 py-2 rounded-lg bg-brand text-white">Inicio</a></li>
-                        <li><a href="#servicios" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-brand transition-colors">Servicios</a></li>
-                        <li><a href="#nosotros" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-brand transition-colors">Nosotros</a></li>
-                        <li><a href="#contacto" class="px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-brand transition-colors">Contacto</a></li>
-                        <li><a href="http://www.benitomartinez.com/IntranetBM/Security/Login.aspx?t=t&id=17&reply=http%3a%2f%2fwww.benitomartinez.com%2fintranet" class="ml-1 px-4 py-2 rounded-lg border border-brand text-brand hover:bg-brand hover:text-white transition-colors">Login Intranet</a></li>
-                        <li><a href="https://apps.rackspace.com/wmidentity/Account/Login?ReturnUrl=%2Fwmidentity%2Fconnect%2Fauthorize%2Fcallback%3Fresponse_mode%3Dform_post%26response_type%3Dcode%2520id_token%26redirect_uri%3Dhttps%253A%252F%252Fapps.rackspace.com%252Flogin.php%26client_id%3Dwebmail%26nonce%3Ddc8f697b636b837725d1e8b92fcb27b5%26state%3D302c2f432048e72bca5a2d52aa84c513%26scope%3Dopenid%2520profile%2520email%2520webmail%2520openid" class="ml-1 px-4 py-2 rounded-lg border border-brand text-brand hover:bg-brand hover:text-white transition-colors">Login E-mail</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <!-- Fondo decorativo -->
+    <div class="fixed inset-0 z-0 bg-curves"></div>
+    
+    <!-- Curvas superior e inferior -->
+    <div class="fixed top-0 left-0 w-full h-[40%] z-[1] bg-gradient-to-b from-[#d8d8d8] to-transparent [clip-path:ellipse(55%_100%_at_50%_0%)]"></div>
+    <div class="fixed bottom-0 left-0 w-full h-[40%] z-[1] bg-gradient-to-t from-[#b0b0b0] to-transparent [clip-path:ellipse(55%_100%_at_50%_100%)]"></div>
+
+    <!-- Contenedor principal -->
+    <div class="relative z-10 flex justify-center items-center min-h-screen p-5">
+        
+        <!-- Panel central -->
+        <div class="main-panel relative rounded-none w-screen h-screen flex flex-col md:flex-row overflow-hidden shadow-2xl">
+            
+            <!-- Línea divisoria (solo desktop) -->
+            <div class="hidden md:block absolute left-[280px] top-0 h-full w-[3px] z-[1] bg-gradient-to-b from-transparent via-[rgba(180,180,180,0.6)] to-transparent"></div>
+
+            <!-- Menú de navegación -->
+            <nav class="relative z-[2] flex flex-wrap gap-1 w-full p-3 md:flex-col md:flex-nowrap md:gap-2 md:w-[280px] md:p-8 md:pl-[30px]">
+                
+                <a href="#privacidad" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Aviso de Privacidad
+                </a>
+                <a href="#nosotros" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Nosotros
+                </a>
+                <a href="#servicios" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Servicios
+                </a>
+                <a href="#infraestructura" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Infraestructura
+                </a>
+                <a href="#login" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Login
+                </a>
+                <a href="#oficinas" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Oficinas
+                </a>
+                <a href="#contacto" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Contacto
+                </a>
+                <a href="#cotizaciones" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Cotizaciones
+                </a>
+                <a href="#certificaciones" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Certificaciones
+                </a>
+                <a href="#puentes" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Puentes Piedras Negras - Eagle Pass
+                </a>
+                <a href="#sitios" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Sitios de Interés
+                </a>
+                <a href="#guias" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Consulta de Guías
+                </a>
+                <a href="#conoce" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Conoce a tu Agente Aduanal
+                </a>
+                <a href="#bolsa" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Bolsa de Trabajo
+                </a>
+                <a href="#buzon" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Buzón de Quejas y Sugerencias
+                </a>
+                <a href="#presentacion" class="nav-link block text-[#c0c8d0] no-underline text-[9px] md:text-[11px] font-semibold tracking-wider uppercase px-2 py-1.5 md:px-3 md:py-2 rounded hover:text-white hover:bg-white/10 hover:translate-x-1 transition-all duration-300">
+                    Presentación Univ. Vizcaya
+                </a>
+            </nav>
+
+            <!-- Contenido principal -->
+            <main id="main-content" class="flex-1 relative z-[2] min-h-0 overflow-hidden">
+
+                <!-- Inicio -->
+                <section id="page-inicio" class="page-view page-view--home active" data-page="inicio">
+                    <button type="button" id="logo-home" class="cursor-pointer border-0 bg-transparent p-0" aria-label="Ir al inicio">
+                        <div class="logo-shape w-40 h-20 flex items-center justify-center mb-4 shadow-lg mx-auto">
+                            <span class="text-5xl font-black text-[#1a2a3a] tracking-[-3px] [text-shadow:1px_1px_2px_rgba(255,255,255,0.3)]">BM</span>
+                        </div>
+                    </button>
+                    <div class="text-sm text-[#8899aa] tracking-[4px] uppercase mb-1 text-center">Agente Aduanal</div>
+                    <div class="text-xl md:text-[22px] text-white font-bold mb-10 text-center">Benito Martínez, S.C.</div>
+                    <div class="text-center">
+                        <div class="text-[28px] text-white font-bold mb-1">Desde 1937</div>
+                        <div class="text-xs text-[#7a8a9a] tracking-wider uppercase">en servicio continuo</div>
+                        <div class="text-sm text-[#9aabb8] tracking-[3px] uppercase mt-2">del Comercio Exterior</div>
+                    </div>
+                </section>
+
+                <!-- Aviso de Privacidad -->
+                <section id="page-privacidad" class="page-view page-view--scroll" data-page="privacidad">
+                    <h2 class="page-title">Aviso de Privacidad</h2>
+                    <div class="page-body">
+                        <p class="pdf-loading">Cargando documento…</p>
+                        <div id="pdf-container"></div>
+                    </div>
+                </section>
+
+                <!-- Nosotros -->
+                <section id="page-nosotros" class="page-view page-view--scroll" data-page="nosotros">
+                    <h2 class="page-title">Nosotros</h2>
+                    <div class="page-body">
+                        <p>Desde 1937, Agente Aduanal Benito Martínez, S.C. acompaña a empresas en sus operaciones de comercio exterior con experiencia, confianza y servicio continuo en la frontera norte de México.</p>
+                    </div>
+                </section>
+
+                <!-- Servicios -->
+                <section id="page-servicios" class="page-view page-view--scroll" data-page="servicios">
+                    <h2 class="page-title">Servicios</h2>
+                    <div class="page-body">
+                        <ul>
+                            <li>Servicio personalizado</li>
+                            <li>Agente aduanal mexicano</li>
+                            <li>Agente aduanal americano</li>
+                            <li>Despacho aduanal de importaciones y exportaciones</li>
+                            <li>Asesoría en comercio exterior</li>
+                            <li>Consultas arancelarias</li>
+                            <li>Capacitación de materia aduanera</li>
+                            <li>Coordinación de embarques</li>
+                            <li>Transporte México y USA</li>
+                            <li>Reportes operativos y administrativos en línea</li>
+                            <li>Instalaciones y equipos especializados</li>
+                            <li>Consolidación de embarques</li>
+                            <li>Operaciones virtuales</li>
+                            <li>Tránsitos nacionales</li>
+                            <li>Instalaciones y equipos especializados para maniobras</li>
+                            <li>Bodegas con más de 16,000 m² y más de 30 hectáreas de patios</li>
+                            <li>4 espuelas de ferrocarril con capacidad para más de 50 carros</li>
+                            <li>Báscula para camiones</li>
+                            <li>Centros de distribución y almacenaje</li>
+                            <li>Servicio en las 49 aduanas del país y sus secciones aduaneras</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Infraestructura -->
+                <section id="page-infraestructura" class="page-view page-view--scroll" data-page="infraestructura">
+                    <h2 class="page-title">Infraestructura</h2>
+                    <div class="page-body">
+                        <p>Instalaciones y equipos especializados para maniobras aduaneras: bodegas, patios, espuelas ferroviarias, básculas y centros de distribución que respaldan operaciones de importación y exportación.</p>
+                    </div>
+                </section>
+
+                <!-- Login -->
+                <section id="page-login" class="page-view page-view--scroll" data-page="login">
+                    <h2 class="page-title">Login</h2>
+                    <div class="page-body">
+                        <p>Accede a la intranet de clientes y colaboradores:</p>
+                        <p class="mt-4">
+                            <a href="http://www.benitomartinez.com/IntranetBM/Security/Login.aspx?t=t&id=17&reply=http%3a%2f%2fwww.benitomartinez.com%2fintranet" target="_blank" rel="noopener noreferrer">
+                                Entrar a la Intranet BM →
+                            </a>
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Oficinas -->
+                <section id="page-oficinas" class="page-view page-view--scroll" data-page="oficinas">
+                    <h2 class="page-title">Oficinas</h2>
+                    <div class="page-body">
+                        <p>Información de nuestras oficinas y puntos de atención en la región fronteriza. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Contacto -->
+                <section id="page-contacto" class="page-view page-view--scroll" data-page="contacto">
+                    <h2 class="page-title">Contacto</h2>
+                    <div class="page-body">
+                        <p>Para cotizaciones, consultas o información general, utilice nuestros canales de contacto. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Cotizaciones -->
+                <section id="page-cotizaciones" class="page-view page-view--scroll" data-page="cotizaciones">
+                    <h2 class="page-title">Cotizaciones</h2>
+                    <div class="page-body">
+                        <p>Solicite una cotización para sus operaciones de comercio exterior. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Certificaciones -->
+                <section id="page-certificaciones" class="page-view page-view--scroll" data-page="certificaciones">
+                    <h2 class="page-title">Certificaciones</h2>
+                    <div class="page-body">
+                        <p>Conozca nuestras certificaciones de calidad y cumplimiento normativo. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Puentes -->
+                <section id="page-puentes" class="page-view page-view--scroll" data-page="puentes">
+                    <h2 class="page-title">Puentes Piedras Negras – Eagle Pass</h2>
+                    <div class="page-body">
+                        <p>Información sobre los puentes internacionales entre Piedras Negras y Eagle Pass. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Sitios de Interés -->
+                <section id="page-sitios" class="page-view page-view--scroll" data-page="sitios">
+                    <h2 class="page-title">Sitios de Interés</h2>
+                    <div class="page-body">
+                        <p>Enlaces y recursos útiles para comercio exterior. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Consulta de Guías -->
+                <section id="page-guias" class="page-view page-view--scroll" data-page="guias">
+                    <h2 class="page-title">Consulta de Guías</h2>
+                    <div class="page-body">
+                        <p>Consulte el estatus de sus guías y operaciones. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Conoce a tu Agente -->
+                <section id="page-conoce" class="page-view page-view--scroll" data-page="conoce">
+                    <h2 class="page-title">Conoce a tu Agente Aduanal</h2>
+                    <div class="page-body">
+                        <p>Conozca al equipo y la trayectoria de Agente Aduanal Benito Martínez, S.C. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Bolsa de Trabajo -->
+                <section id="page-bolsa" class="page-view page-view--scroll" data-page="bolsa">
+                    <h2 class="page-title">Bolsa de Trabajo</h2>
+                    <div class="page-body">
+                        <p>Oportunidades laborales en nuestra organización. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Buzón -->
+                <section id="page-buzon" class="page-view page-view--scroll" data-page="buzon">
+                    <h2 class="page-title">Buzón de Quejas y Sugerencias</h2>
+                    <div class="page-body">
+                        <p>Comparta sus comentarios para ayudarnos a mejorar. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+                <!-- Presentación -->
+                <section id="page-presentacion" class="page-view page-view--scroll" data-page="presentacion">
+                    <h2 class="page-title">Presentación Univ. Vizcaya</h2>
+                    <div class="page-body">
+                        <p>Material de presentación institucional. Contenido en preparación.</p>
+                    </div>
+                </section>
+
+            </main>
         </div>
-    </header>
+    </div>
 
-    <main>
+    <script type="module">
+        const pages = document.querySelectorAll('.page-view');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const logoHome = document.getElementById('logo-home');
 
-        <!-- Hero -->
-        <section id="inicio" class="relative overflow-hidden bg-brand text-white">
-            <div class="absolute inset-0 opacity-20">
-                <img src="public/img/world-map-blue-background-free-vector.jpg" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-br from-brand via-brand/90 to-brand-light"></div>
-            <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
-                <div class="max-w-2xl">
-                    <p class="text-blue-300 text-sm font-semibold tracking-widest uppercase mb-4">Comercio exterior · Logística · Aduanas</p>
-                    <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-                        Tu aliado en operaciones aduanales e internacionales
-                    </h1>
-                    <p class="text-lg text-blue-100 mb-8 leading-relaxed">
-                        Más de décadas de experiencia facilitando importaciones y exportaciones con agilidad, cumplimiento normativo y atención personalizada.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#contacto" class="inline-flex items-center px-6 py-3 bg-white text-brand font-semibold rounded-lg hover:bg-blue-50 transition-colors shadow-lg">
-                            Solicitar cotización
-                        </a>
-                        <a href="#servicios" class="inline-flex items-center px-6 py-3 border border-white/40 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors">
-                            Conocer servicios
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        let pdfLoaded = false;
 
-        <!-- Stats -->
-        <section class="bg-white border-b border-slate-200">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div>
-                    <p class="text-3xl font-bold text-brand">+30</p>
-                    <p class="text-sm text-slate-500 mt-1">Años de experiencia</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold text-brand">ISO</p>
-                    <p class="text-sm text-slate-500 mt-1">9001 certificados</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold text-brand">24/7</p>
-                    <p class="text-sm text-slate-500 mt-1">Seguimiento operativo</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold text-brand">100%</p>
-                    <p class="text-sm text-slate-500 mt-1">Compromiso legal</p>
-                </div>
-            </div>
-        </section>
+        function getPageFromHash() {
+            const hash = location.hash.replace('#', '');
+            return hash || 'inicio';
+        }
 
-        <!-- Services -->
-        <section id="servicios" class="py-16 sm:py-20">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-brand mb-3">Nuestros servicios</h2>
-                    <p class="text-slate-500 max-w-xl mx-auto">Soluciones integrales para que tu mercancía cruce fronteras de forma segura y eficiente.</p>
-                </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <article class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-100 transition-all">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-brand mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                        </div>
-                        <h3 class="font-semibold text-brand mb-2">Despacho aduanal</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Importación y exportación con gestión completa de trámites ante la autoridad aduanera.</p>
-                    </article>
-                    <article class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-100 transition-all">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-brand mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                        </div>
-                        <h3 class="font-semibold text-brand mb-2">Logística internacional</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Coordinación de transporte, almacenaje y entrega puerta a puerta en cualquier destino.</p>
-                    </article>
-                    <article class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-100 transition-all">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-brand mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                        </div>
-                        <h3 class="font-semibold text-brand mb-2">Cumplimiento normativo</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Asesoría en regulaciones, clasificación arancelaria y permisos especiales.</p>
-                    </article>
-                    <article class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-100 transition-all">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-brand mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                        </div>
-                        <h3 class="font-semibold text-brand mb-2">Infraestructura</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Instalaciones y recursos operativos para el manejo eficiente de tu carga.</p>
-                    </article>
-                    <article class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-100 transition-all">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-brand mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        </div>
-                        <h3 class="font-semibold text-brand mb-2">Cotizaciones</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Presupuestos claros y competitivos adaptados a las necesidades de tu operación.</p>
-                    </article>
-                    <article class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 hover:shadow-md hover:border-blue-100 transition-all">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-brand mb-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        </div>
-                        <h3 class="font-semibold text-brand mb-2">Atención personalizada</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">Conoce a tu agente aduanal y recibe acompañamiento en cada etapa del proceso.</p>
-                    </article>
+        function setActiveNav(pageId) {
+            navLinks.forEach(link => {
+                const target = link.getAttribute('href').replace('#', '');
+                link.classList.toggle('active', target === pageId);
+            });
+        }
 
-                    <div id="btnmoreServices" class="">
-                        <a href="src/html/Services.html">More services</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.toggle('active', page.dataset.page === pageId);
+            });
+            setActiveNav(pageId);
 
-        <!-- About -->
-        <section id="nosotros" class="py-16 sm:py-20 bg-white border-y border-slate-200">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl font-bold text-brand mb-4">Confianza respaldada por certificaciones</h2>
-                    <p class="text-slate-600 leading-relaxed mb-6">
-                        En AABM combinamos experiencia, tecnología y un equipo especializado para ofrecer servicios aduanales de alto nivel. Nuestro compromiso con la calidad y la responsabilidad social nos distingue en el sector.
-                    </p>
-                    <ul class="space-y-3 text-sm text-slate-600">
-                        <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                            Procesos certificados bajo norma ISO 9001
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                            Distintivo ESR — Empresa Socialmente Responsable
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                            Equipo de agentes aduanales certificados
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <img src="public/img/9001.jpg" alt="Certificación ISO 9001" class="h-24 object-contain rounded-lg shadow-sm">
-                    <img src="public/img/ESR.png" alt="Distintivo ESR" class="h-24 object-contain rounded-lg shadow-sm">
-                    <img src="public/img/ola.jpg" alt="Distintivo ESR" class="h-24 object-contain rounded-lg shadow-sm">
-                </div>
-            </div>
-        </section>
+            if (pageId === 'privacidad') {
+                loadPdf();
+            }
+        }
 
-        <!-- CTA / Contact -->
-        <section id="contacto" class="py-16 sm:py-20">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6">
-                <div class="bg-brand rounded-2xl overflow-hidden shadow-xl">
-                    <div class="grid md:grid-cols-2">
-                        <div class="p-8 sm:p-12 text-white">
-                            <h2 class="text-2xl sm:text-3xl font-bold mb-4">¿Listo para mover tu carga?</h2>
-                            <p class="text-blue-100 mb-6 leading-relaxed">
-                                Contáctanos para una cotización sin compromiso. Nuestro equipo te responderá a la brevedad.
-                            </p>
-                            <div class="space-y-3 text-sm text-blue-100">
-                                <p class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                                    contacto@aabm.com.mx
-                                </p>
-                                <p class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                                    +52 (000) 000 0000
-                                </p>
-                            </div>
-                        </div>
-                        <form class="bg-white p-8 sm:p-12 flex flex-col gap-4 justify-center">
-                            <input type="text" placeholder="Nombre" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
-                            <input type="email" placeholder="Correo electrónico" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
-                            <textarea rows="3" placeholder="Cuéntanos sobre tu operación" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand resize-none"></textarea>
-                            <button type="submit" class="w-full py-3 bg-brand text-white font-semibold rounded-lg hover:bg-brand-light transition-colors">
-                                Enviar mensaje
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+        function navigateTo(pageId) {
+            const apply = () => showPage(pageId);
 
-    </main>
+            if (document.startViewTransition) {
+                document.startViewTransition(apply);
+            } else {
+                apply();
+            }
 
-    <!-- Footer -->
-    <footer class="bg-brand text-blue-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8 mb-10">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="public/img/BM.svg" alt="AABM logo" class="w-8 h-8 brightness-0 invert">
-                        <span class="font-semibold text-white text-sm">Agencia Aduanal Benito Martínez</span>
-                    </div>
-                    <p class="text-sm leading-relaxed">Soluciones aduanales y logísticas para el comercio internacional.</p>
-                </div>
-                <div>
-                    <h3 class="text-white font-semibold text-sm mb-4">Enlaces rápidos</h3>
-                    <nav class="flex flex-col gap-2 text-sm">
-                        <a href="#" class="hover:text-white transition-colors">Servicios</a>
-                        <a href="#" class="hover:text-white transition-colors">Infraestructura</a>
-                        <a href="#" class="hover:text-white transition-colors">Oficinas</a>
-                        <a href="#" class="hover:text-white transition-colors">Cotizaciones</a>
-                        <a href="#" class="hover:text-white transition-colors">Certificaciones</a>
-                    </nav>
-                </div>
-                <div>
-                    <h3 class="text-white font-semibold text-sm mb-4">Recursos</h3>
-                    <nav class="flex flex-col gap-2 text-sm">
-                        <a href="#" class="hover:text-white transition-colors">&Sitios de interés</a>
-                        <a href="#" class="hover:text-white transition-colors">Consulta de guías</a>
-                        <a href="#" class="hover:text-white transition-colors">Conoce a tu agente aduanal</a>
-                        <a href="#" class="hover:text-white transition-colors">Bolsa de trabajo</a>
-                        <a href="src/html/Privacy.html" class="hover:text-white transition-colors">Aviso de privacidad</a>
-                    </nav>
-                </div>
-            </div>
-            <div class="border-t border-white/10 pt-6 text-center text-xs text-blue-300">
-                &copy; 2026 Agencia Aduanal Benito Martínez. Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
+            const url = pageId === 'inicio'
+                ? `${location.pathname}${location.search}`
+                : `#${pageId}`;
+
+            history.pushState({ page: pageId }, '', url);
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const pageId = link.getAttribute('href').replace('#', '');
+                navigateTo(pageId);
+            });
+        });
+
+        logoHome.addEventListener('click', () => navigateTo('inicio'));
+
+        window.addEventListener('hashchange', () => {
+            showPage(getPageFromHash());
+        });
+
+        window.addEventListener('popstate', () => {
+            showPage(getPageFromHash());
+        });
+
+        // Página inicial según hash (si existe)
+        const initialPage = getPageFromHash();
+        if (initialPage !== 'inicio') {
+            showPage(initialPage);
+        }
+
+        async function loadPdf() {
+            if (pdfLoaded) return;
+            pdfLoaded = true;
+
+            const container = document.getElementById('pdf-container');
+            const loading = document.querySelector('.pdf-loading');
+
+            try {
+                const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs');
+                pdfjsLib.GlobalWorkerOptions.workerSrc =
+                    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
+
+                const pdf = await pdfjsLib.getDocument('public/Aviso de Privacidad AABM.pdf').promise;
+                loading.style.display = 'none';
+
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: 1.5 });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'pdf-page';
+                    wrapper.appendChild(canvas);
+                    container.appendChild(wrapper);
+
+                    await page.render({ canvasContext: context, viewport }).promise;
+                }
+            } catch (err) {
+                loading.textContent = 'No se pudo cargar el documento. Intente más tarde.';
+                console.error(err);
+            }
+        }
+    </script>
 
 </body>
 </html>
