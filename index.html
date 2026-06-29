@@ -203,6 +203,259 @@
             text-align: center;
             padding: 2rem;
         }
+
+        /* ── Nosotros: tarjetas y paneles ── */
+        #nosotros-stage {
+            view-transition-name: nosotros-stage;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        ::view-transition-old(nosotros-stage),
+        ::view-transition-new(nosotros-stage) {
+            animation-duration: 0.35s;
+            animation-timing-function: ease;
+        }
+
+        ::view-transition-old(nosotros-stage) {
+            animation-name: nosotros-out;
+        }
+
+        ::view-transition-new(nosotros-stage) {
+            animation-name: nosotros-in;
+        }
+
+        @keyframes nosotros-out {
+            from { opacity: 1; transform: scale(1); }
+            to   { opacity: 0; transform: scale(0.97); }
+        }
+
+        @keyframes nosotros-in {
+            from { opacity: 0; transform: scale(1.02); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .nosotros-layer {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .nosotros-layer.active {
+            display: flex;
+        }
+
+        .nosotros-intro {
+            color: #9aabb8;
+            font-size: 0.85rem;
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            text-align: center;
+            max-width: 36rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nosotros-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+            flex: 1;
+            align-content: start;
+        }
+
+        @media (min-width: 768px) {
+            .nosotros-cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        .nosotros-card {
+            appearance: none;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+            color: #e0e8f0;
+            border-radius: 8px;
+            padding: 1.25rem 1rem;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            line-height: 1.4;
+            transition: background 0.25s, border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+        }
+
+        .nosotros-card:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(126, 184, 232, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .nosotros-card:active {
+            transform: translateY(-1px);
+        }
+
+        .nosotros-card__icon {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.85;
+        }
+
+        .nosotros-panel-body {
+            flex: 1;
+            overflow-y: auto;
+            color: #b8c8d8;
+            font-size: 0.9rem;
+            line-height: 1.75;
+        }
+
+        .nosotros-panel-body h3 {
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        .nosotros-panel-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .nosotros-panel-body p + p {
+            margin-top: 0.75rem;
+        }
+
+        .nosotros-back {
+            align-self: flex-end;
+            margin-top: 1.25rem;
+            padding: 0.4rem 0;
+            background: none;
+            border: none;
+            color: #7eb8e8;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .nosotros-back:hover {
+            color: #fff;
+        }
+
+        /* Línea de tiempo interactiva */
+        .timeline-wrap {
+            position: relative;
+            margin-top: 1rem;
+            padding: 1.5rem 0 0.5rem;
+            background: rgba(0, 0, 0, 0.15) url('public/img/world-map-blue-background-free-vector.jpg') center/cover no-repeat;
+            border-radius: 8px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timeline-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 22, 40, 0.75);
+            border-radius: 8px;
+        }
+
+        .timeline-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 1rem 1rem;
+        }
+
+        .timeline-heading {
+            text-align: center;
+            color: #fff;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-sub {
+            text-align: center;
+            color: #7eb8e8;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .timeline-years {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .timeline-year {
+            appearance: none;
+            background: none;
+            border: none;
+            color: #8899aa;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .timeline-year:hover,
+        .timeline-year.active {
+            color: #fff;
+            background: rgba(126, 184, 232, 0.25);
+        }
+
+        .timeline-event {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            border-left: 3px solid #7eb8e8;
+            min-height: 4rem;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .timeline-event-year {
+            color: #7eb8e8;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .timeline-event-text {
+            color: #c8d8e8;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .timeline-placeholder {
+            color: #8899aa;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 1rem;
+            font-style: italic;
+        }
     </style>
 </head>
 <body class="min-h-screen overflow-x-hidden bg-[#c0c0c0] font-sans relative">
@@ -306,9 +559,146 @@
 
                 <!-- Nosotros -->
                 <section id="page-nosotros" class="page-view page-view--scroll" data-page="nosotros">
-                    <h2 class="page-title">Nosotros</h2>
-                    <div class="page-body">
-                        <p>Desde 1937, Agente Aduanal Benito Martínez, S.C. acompaña a empresas en sus operaciones de comercio exterior con experiencia, confianza y servicio continuo en la frontera norte de México.</p>
+                    <div id="nosotros-stage">
+
+                        <!-- Capa: tarjetas -->
+                        <div id="nosotros-cards" class="nosotros-layer active">
+                            <h2 class="page-title">Nosotros</h2>
+                            <p class="nosotros-intro">
+                                Desde el inicio de nuestra compañía, tres conceptos han definido nuestro servicio:
+                                <strong class="text-white not-italic">"Calidad, Seguridad y Rapidez"</strong>
+                            </p>
+                            <div class="nosotros-cards-grid">
+                                <button type="button" class="nosotros-card" data-nosotros="mensaje">
+                                    <span class="nosotros-card__icon">✉</span>
+                                    Mensaje del Director
+                                </button>
+                                <button type="button" class="nosotros-card" data-nosotros="mision">
+                                    <span class="nosotros-card__icon">◎</span>
+                                    Misión y Visión
+                                </button>
+                                <button type="button" class="nosotros-card" data-nosotros="politicas">
+                                    <span class="nosotros-card__icon">✓</span>
+                                    Políticas de Calidad y Seguridad
+                                </button>
+                                <button type="button" class="nosotros-card" data-nosotros="valores">
+                                    <span class="nosotros-card__icon">★</span>
+                                    Valores
+                                </button>
+                                <button type="button" class="nosotros-card" data-nosotros="historia">
+                                    <span class="nosotros-card__icon">⏱</span>
+                                    Historia
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Capa: Mensaje del Director -->
+                        <div id="nosotros-mensaje" class="nosotros-layer" data-panel="mensaje">
+                            <h2 class="page-title">Mensaje del Director</h2>
+                            <div class="nosotros-panel-body">
+                                <p>
+                                    Desde 1937, nuestra Agencia Aduanal se ha consolidado como líder en el Comercio
+                                    Internacional, ofreciendo sistemas de logística y despacho aduanal de vanguardia
+                                    que respaldan el crecimiento de nuestros clientes en la región fronteriza.
+                                </p>
+                                <p>
+                                    Nuestro compromiso permanece intacto: brindar un servicio de excelencia basado
+                                    en la calidad, la seguridad y la rapidez, pilares que nos han distinguido por
+                                    más de ocho décadas de servicio continuo al Comercio Exterior.
+                                </p>
+                                <p>
+                                    Agradecemos la confianza de quienes nos eligen día a día y reafirmamos nuestra
+                                    dedicación a innovar y adaptarnos a las necesidades de un mercado global en
+                                    constante evolución.
+                                </p>
+                            </div>
+                            <button type="button" class="nosotros-back" data-nosotros-back>regresar…</button>
+                        </div>
+
+                        <!-- Capa: Misión y Visión -->
+                        <div id="nosotros-mision" class="nosotros-layer" data-panel="mision">
+                            <h2 class="page-title">Misión y Visión</h2>
+                            <div class="nosotros-panel-body">
+                                <h3>Misión</h3>
+                                <p>
+                                    Innovamos soluciones para facilitar el Comercio Exterior, contribuyendo a la
+                                    productividad de nuestros clientes y al bienestar de nuestro entorno.
+                                </p>
+                                <h3>Visión</h3>
+                                <p>
+                                    Ser la Empresa líder de Comercio Exterior en la región norte del País,
+                                    comprometida con la comunidad y el medio ambiente, brindando un servicio de
+                                    calidad permanente, con Personal altamente capacitado y mediante el desarrollo
+                                    de Tecnologías Innovadoras.
+                                </p>
+                            </div>
+                            <button type="button" class="nosotros-back" data-nosotros-back>regresar…</button>
+                        </div>
+
+                        <!-- Capa: Políticas -->
+                        <div id="nosotros-politicas" class="nosotros-layer" data-panel="politicas">
+                            <h2 class="page-title">Políticas de Calidad y Seguridad</h2>
+                            <div class="nosotros-panel-body">
+                                <h3>Política de Calidad</h3>
+                                <p>
+                                    En Agente Aduanal Benito Martínez, S.C. estamos comprometidos con la mejora
+                                    continua de nuestros procesos, cumpliendo con los requisitos de nuestros clientes
+                                    y la normativa aplicable. Nuestro Sistema de Gestión de Calidad está certificado
+                                    bajo la norma ISO 9001:2008, garantizando la excelencia en cada operación de
+                                    comercio exterior que realizamos.
+                                </p>
+                                <h3>Política de Seguridad</h3>
+                                <p>
+                                    Garantizamos que todas nuestras operaciones de comercio exterior se realicen de
+                                    manera segura y confiable, protegiendo la integridad de la mercancía, la
+                                    información de nuestros clientes y el cumplimiento de las disposiciones legales
+                                    en materia aduanera, tanto en México como en Estados Unidos.
+                                </p>
+                            </div>
+                            <button type="button" class="nosotros-back" data-nosotros-back>regresar…</button>
+                        </div>
+
+                        <!-- Capa: Valores -->
+                        <div id="nosotros-valores" class="nosotros-layer" data-panel="valores">
+                            <h2 class="page-title">Nuestros Valores</h2>
+                            <div class="nosotros-panel-body">
+                                <p class="text-base text-white text-center leading-relaxed px-2">
+                                    <em>HONESTIDAD, COMPROMISO y RESPONSABILIDAD</em> con nuestros Clientes y
+                                    Proveedores, con el Personal que labora en nuestra Empresa, sus Inversionistas
+                                    y la Sociedad de la que formamos parte.
+                                </p>
+                            </div>
+                            <button type="button" class="nosotros-back" data-nosotros-back>regresar…</button>
+                        </div>
+
+                        <!-- Capa: Historia (línea de tiempo) -->
+                        <div id="nosotros-historia" class="nosotros-layer" data-panel="historia">
+                            <h2 class="page-title">Historia</h2>
+                            <div class="nosotros-panel-body">
+                                <div class="timeline-wrap">
+                                    <div class="timeline-inner">
+                                        <div class="timeline-heading">Línea de Tiempo Interactiva</div>
+                                        <div class="timeline-sub">Elija una fecha</div>
+                                        <div class="timeline-years" role="tablist" aria-label="Años históricos">
+                                            <button type="button" class="timeline-year" data-year="1918" role="tab">1918</button>
+                                            <button type="button" class="timeline-year" data-year="1937" role="tab">1937</button>
+                                            <button type="button" class="timeline-year" data-year="1972" role="tab">1972</button>
+                                            <button type="button" class="timeline-year" data-year="1978" role="tab">1978</button>
+                                            <button type="button" class="timeline-year" data-year="1995" role="tab">1995</button>
+                                            <button type="button" class="timeline-year" data-year="2000" role="tab">2000</button>
+                                            <button type="button" class="timeline-year" data-year="2008" role="tab">2008</button>
+                                        </div>
+                                        <div id="timeline-event" class="timeline-event" hidden>
+                                            <div class="timeline-event-year" id="timeline-event-year"></div>
+                                            <div class="timeline-event-text" id="timeline-event-text"></div>
+                                        </div>
+                                        <p class="timeline-placeholder" id="timeline-placeholder">Seleccione un año para conocer nuestro historial.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="nosotros-back" data-nosotros-back>regresar…</button>
+                        </div>
+
                     </div>
                 </section>
 
@@ -479,6 +869,10 @@
             });
             setActiveNav(pageId);
 
+            if (pageId !== 'nosotros') {
+                resetNosotros();
+            }
+
             if (pageId === 'privacidad') {
                 loadPdf();
             }
@@ -524,6 +918,83 @@
             showPage(initialPage);
         }
 
+        /* ── Nosotros: tarjetas, paneles y línea de tiempo ── */
+        const nosotrosCardsLayer = document.getElementById('nosotros-cards');
+        const nosotrosLayers = document.querySelectorAll('.nosotros-layer');
+        const nosotrosCardButtons = document.querySelectorAll('.nosotros-card');
+        const nosotrosBackButtons = document.querySelectorAll('[data-nosotros-back]');
+
+        const timelineEvents = {
+            1918: 'Orígenes de la familia Martínez en actividades comerciales y de servicios en la región fronteriza de Coahuila.',
+            1937: 'Fundación oficial de Agente Aduanal Benito Martínez, iniciando operaciones de despacho aduanal en Piedras Negras.',
+            1972: 'Expansión de operaciones y consolidación como referente en comercio exterior en la frontera norte.',
+            1978: 'Ampliación de instalaciones con nuevas bodegas y patios para el manejo de mercancías de importación y exportación.',
+            1995: 'Modernización de sistemas operativos y administrativos, incorporando tecnología para reportes en línea.',
+            2000: 'Implementación del Sistema de Gestión de Calidad y avance hacia la certificación internacional.',
+            2008: 'Certificación bajo la norma ISO 9001:2008, reafirmando el compromiso con la calidad en el servicio aduanal.'
+        };
+
+        function withTransition(callback) {
+            if (document.startViewTransition) {
+                document.startViewTransition(callback);
+            } else {
+                callback();
+            }
+        }
+
+        function showNosotrosLayer(layerId) {
+            withTransition(() => {
+                nosotrosLayers.forEach(layer => {
+                    layer.classList.toggle('active', layer.id === layerId);
+                });
+            });
+        }
+
+        function resetNosotros() {
+            showNosotrosLayer('nosotros-cards');
+            resetTimeline();
+        }
+
+        function resetTimeline() {
+            document.querySelectorAll('.timeline-year').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('timeline-event').hidden = true;
+            document.getElementById('timeline-placeholder').hidden = false;
+        }
+
+        nosotrosCardButtons.forEach(card => {
+            card.addEventListener('click', () => {
+                const panel = card.dataset.nosotros;
+                showNosotrosLayer(`nosotros-${panel}`);
+            });
+        });
+
+        nosotrosBackButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                showNosotrosLayer('nosotros-cards');
+                resetTimeline();
+            });
+        });
+
+        document.querySelectorAll('.timeline-year').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const year = btn.dataset.year;
+                document.querySelectorAll('.timeline-year').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const eventBox = document.getElementById('timeline-event');
+                const placeholder = document.getElementById('timeline-placeholder');
+
+                withTransition(() => {
+                    document.getElementById('timeline-event-year').textContent = year;
+                    document.getElementById('timeline-event-text').textContent = timelineEvents[year] || '';
+                    eventBox.hidden = false;
+                    placeholder.hidden = true;
+                });
+            });
+        });
+
+
+        /* librari PDF */
         async function loadPdf() {
             if (pdfLoaded) return;
             pdfLoaded = true;
